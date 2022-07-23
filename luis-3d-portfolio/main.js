@@ -1,7 +1,7 @@
 import './style.css'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 
 //setting the scene like in a game
 const scene = new THREE.Scene();
@@ -79,9 +79,19 @@ scene.background = bgTexture;
 
 
 // Instantiate a loader
-const loader = new GLTFLoader();
+const fbxLoader = new FBXLoader();
 
+//fbxLoader.scale.set(10,10,10);
 
+fbxLoader.load(
+  //resource
+'objects/errorNode-Test.fbx',
+(object) => {
+
+  object.scale.set(.5,.5,.5);
+  scene.add( object )
+  },
+)
 
 
 //loop a animation which in this case is the scene refresh
@@ -92,6 +102,8 @@ function animate(){
   donut.rotation.x += 0.02;
   donut.rotation.y += 0.005;
   donut.rotation.z += 0.02;
+
+  
 
 //updates and makign sure canges are reflected onto the DOM
 controls.update();
