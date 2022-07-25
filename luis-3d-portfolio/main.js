@@ -77,18 +77,31 @@ Array(200).fill().forEach(addStar)
 const bgTexture = new THREE.TextureLoader().load('bluemoonbg.png');
 scene.background = bgTexture;
 
+//materials for objects
+const redStaplerTexture = new THREE.TextureLoader().load('objects/redStapler.png');
 
-// Instantiate a loader
-const fbxLoader = new FBXLoader();
+
+
+// Instantiate a loader for 3d objects
+const redStaplerObject = new FBXLoader();
 
 //fbxLoader.scale.set(10,10,10);
 
-fbxLoader.load(
+redStaplerObject.load(
   //resource
-'objects/errorNode-Test.fbx',
+'objects/redStapler.fbx',
 (object) => {
 
-  object.scale.set(.5,.5,.5);
+  object.scale.set(.15,.15,.15);
+  object.position.set(5,5,5);
+  object.traverse(function (child) {
+    if (child instanceof THREE.Mesh) {
+
+        // apply texture
+        child.material.map = redStaplerTexture
+        child.material.needsUpdate = true;
+    }
+});
   scene.add( object )
   },
 )
